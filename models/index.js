@@ -21,7 +21,14 @@ const Page = db.define('pages', {
   }
 });
 
-const User = db.define('user', {
+Page.beforeValidate((page) => {
+  const regex = / +/g;
+  const regex2 = /\W/g;
+  const noSpace = page.title.replace(regex, '_');
+  page.slug = noSpace.replace(regex2, '');
+});
+
+const User = db.define('users', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -37,4 +44,4 @@ const User = db.define('user', {
 
 
 
-module.exports = db
+module.exports = { db, Page, User}

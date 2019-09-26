@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const main = require('./views/main');
-const db = require('./models');
+const {db} = require('./models');
 const userRoutes = require('./routes/user');
 const wikiRoutes = require('./routes/wiki');
 
@@ -21,7 +21,9 @@ app.get('/', (req, res, next) => {
 const PORT = 1234;
 
 const init = async () => {
-  await db.sync({force: true})
+  await db.sync({
+    force: true
+  })
 
 
   app.listen(PORT, () => {
