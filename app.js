@@ -2,11 +2,16 @@ const express = require('express');
 const app = express();
 const main = require('./views/main');
 const db = require('./models');
+const userRoutes = require('./routes/user');
+const wikiRoutes = require('./routes/wiki');
 
 
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({extended:false}));
+app.use('/wiki',wikiRoutes);
+app.use('/user',userRoutes);
+
 
 app.get('/', (req, res, next) => {
   res.send(main(''));
